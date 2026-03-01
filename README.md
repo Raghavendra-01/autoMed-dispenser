@@ -89,6 +89,40 @@ autoMed-dispenser/
 
 ---
 
+## 👨‍💻 Team
+
+| Name | Role |
+|------|------|
+| Devineni Prem Nag | Team Member |
+| D. Shanmukha Venkata Sai | Team Member |
+| M. Hemanth Kumar | Team Member |
+| SK. Sajeeth Shareef | Team Member |
+
+**Guided by:** Dr. A V. Prabhu, Associate Professor, Dept of ECE  
+**Institution:** KL Deemed to be University
+
+---
+
+## 📊 Presentation
+
+📥 **[Download PPT](docs/Embedded_Prototype.pptx)** — Full project presentation (17 slides)
+
+Slides cover: Introduction · Circuit Diagram · Hardware & Software Requirements · Flowchart · Advantages · Applications · Results · Future Scope · Conclusion
+
+---
+
+## 🔭 Future Scope
+
+- AI integration for dosage analysis and patient behavior monitoring
+- Mobile app with prescription upload and tracking
+- Cloud storage for long-term medication history
+- Voice assistant support (Alexa / Google Assistant)
+- Camera-based verification to confirm medicine intake
+- Biometric authentication (fingerprint / face recognition)
+- Auto refill notification system
+
+---
+
 ## 📄 License
 
 MIT © 2024 — feel free to use, modify, and share.
