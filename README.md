@@ -60,9 +60,9 @@
 │                   AUTOMED DISPENSE CYCLE                │
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
-│   [IDLE]  ──►  Servo @ 0°    ──►  Wait 5 seconds       │
+│   [IDLE]  ──►  Servo @ 0°    ──►  Wait 5 seconds        │
 │                                                         │
-│   [ALERT] ──►  Servo @ 180°  ──►  Compartment OPEN     │
+│   [ALERT] ──►  Servo @ 180°  ──►  Compartment OPEN      │
 │           ──►  LCD: "TAKE MEDICINE"                     │
 │           ──►  LED: ON        ──►  Wait 5 seconds       │
 │                                                         │
