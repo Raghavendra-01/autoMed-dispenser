@@ -1,77 +1,168 @@
-# 💊 AutoMed — Automated Medicine Dispenser
+<div align="center">
 
-> An ESP32-based automatic medicine dispenser with an I2C LCD display, servo-driven drum, and LED alert — built to help patients never miss a dose.
+```
+ █████╗ ██╗   ██╗████████╗ ██████╗ ███╗   ███╗███████╗██████╗ 
+██╔══██╗██║   ██║╚══██╔══╝██╔═══██╗████╗ ████║██╔════╝██╔══██╗
+███████║██║   ██║   ██║   ██║   ██║██╔████╔██║█████╗  ██║  ██║
+██╔══██║██║   ██║   ██║   ██║   ██║██║╚██╔╝██║██╔══╝  ██║  ██║
+██║  ██║╚██████╔╝   ██║   ╚██████╔╝██║ ╚═╝ ██║███████╗██████╔╝
+╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═════╝ 
+```
+
+### 💊 Automated Medical Dispenser using ESP32
+
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=16&pause=1000&color=0BBFA0&center=true&vCenter=true&width=600&lines=Never+miss+a+dose+again.;ESP32+%2B+Servo+%2B+LCD+%2B+LED;Precision-timed+medication+dispensing.;Local-first.+Zero+internet+required." alt="Typing SVG" />
+
+<br/>
+
+[![Demo Video](https://img.shields.io/badge/▶_Demo_Video-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/41HkbPN6JoI)
+[![PPT](https://img.shields.io/badge/📊_Presentation-Download-1558D6?style=for-the-badge&logo=microsoftpowerpoint&logoColor=white)](Embedded%20Prototype.pptx)
+[![Report](https://img.shields.io/badge/📄_Report-Download-0BBFA0?style=for-the-badge&logo=googledocs&logoColor=white)](AutomatedMedicalDispenser_Report.docx)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+
+<br/>
+
+[![ESP32](https://img.shields.io/badge/ESP32-Espressif-E7352C?style=flat-square&logo=espressif&logoColor=white)](https://www.espressif.com)
+[![Arduino](https://img.shields.io/badge/Arduino-IDE-00979D?style=flat-square&logo=arduino&logoColor=white)](https://www.arduino.cc)
+[![C++](https://img.shields.io/badge/Language-C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)](https://isocpp.org)
+[![KL University](https://img.shields.io/badge/KL_University-ECE_Dept-2C3E50?style=flat-square)](https://www.kluniversity.in)
+
+</div>
 
 ---
 
-## 📸 Demo
+## 🎬 Live Demo
 
-▶️ **Watch the full demo on YouTube:** [https://youtu.be/41HkbPN6JoI](https://youtu.be/41HkbPN6JoI)
+<div align="center">
 
 [![AutoMed Demo](https://img.youtube.com/vi/41HkbPN6JoI/maxresdefault.jpg)](https://youtu.be/41HkbPN6JoI)
 
-Open `docs/index.html` in your browser for the interactive project showcase.
+*Click to watch — servo actuation, LCD alert & LED indicator on real hardware*
+
+</div>
+
+---
+
+## 🧠 The Problem We Solved
+
+> **50%** of chronic-condition patients fail to take medication as prescribed.  
+> **125,000+** deaths per year in the US are linked to medication non-adherence.  
+> **The elderly** managing multiple prescriptions face dangerous dosing confusion daily.
+
+**AutoMed eliminates this** — a hardware-level solution requiring zero internet, zero app, zero cloud.
+
+---
+
+## ⚡ How It Works
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   AUTOMED DISPENSE CYCLE                │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│   [IDLE]  ──►  Servo @ 0°    ──►  Wait 5 seconds       │
+│                                                         │
+│   [ALERT] ──►  Servo @ 180°  ──►  Compartment OPEN     │
+│           ──►  LCD: "TAKE MEDICINE"                     │
+│           ──►  LED: ON        ──►  Wait 5 seconds       │
+│                                                         │
+│   [RESET] ──►  LCD: Clear     ──►  LED: OFF             │
+│           ──►  Loop back to [IDLE]                      │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
 
 ---
 
 ## 🔧 Hardware
 
-| Component | Detail |
-|-----------|--------|
-| Microcontroller | ESP32 (any 38-pin variant) |
-| Display | 16×2 I2C LCD (address `0x27`) |
-| Actuator | Standard servo motor |
-| Indicator | LED |
+<table>
+<tr>
+<td>
 
-### Pin Map
+### Components
 
-| Signal | ESP32 Pin |
-|--------|-----------|
-| Servo PWM | 18 |
-| LED | 25 |
-| I2C SDA | 21 |
-| I2C SCL | 22 |
+| Component | Model | Pin |
+|-----------|-------|-----|
+| 🧠 Microcontroller | ESP32 (38-pin) | — |
+| 📺 Display | 16×2 I2C LCD | SDA: 21, SCL: 22 |
+| ⚙️ Actuator | Servo Motor | PWM: 18 |
+| 💡 Indicator | LED | GPIO: 25 |
+| 🔌 Supply | 5V Power | VIN/GND |
 
----
+</td>
+<td>
 
-## 📚 Libraries
+### Wiring
 
-Install these via the Arduino Library Manager:
+```
+ESP32 Pin 18  ──────► Servo Signal
+ESP32 Pin 21  ──────► LCD SDA
+ESP32 Pin 22  ──────► LCD SCL
+ESP32 Pin 25  ──────► LED (+)
+ESP32 3.3V    ──────► LCD VCC
+ESP32 GND     ──────► Common GND
+```
 
-- **ESP32Servo** — servo control on ESP32 PWM channels
-- **LiquidCrystal_I2C** — I2C LCD driver
-
----
-
-## ⚙️ How It Works
-
-1. Servo holds at **0°** (compartment closed) for 5 seconds.
-2. Servo rotates to **180°** (compartment open) — releasing one dose.
-3. LCD displays **"TAKE MEDICINE"** and LED turns ON for 5 seconds.
-4. LCD clears, LED turns OFF, and the cycle repeats.
-
-Adjust `CLOSED_DURATION` and `OPEN_DURATION` at the top of `AutoMed.ino` to change timing.
+</td>
+</tr>
+</table>
 
 ---
 
-## 🚀 Getting Started
+## 📚 Libraries Required
+
+```cpp
+#include <ESP32Servo.h>         // Servo control on ESP32 PWM channels
+#include <LiquidCrystal_I2C.h>  // I2C LCD 16x2 driver
+```
+
+Install via **Arduino IDE → Tools → Manage Libraries**
+
+---
+
+## 🚀 Quick Start
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/YOUR_USERNAME/autoMed-dispenser.git
+# 1. Clone the repository
+git clone https://github.com/Raghavendra-01/autoMed-dispenser.git
+cd autoMed-dispenser
 
 # 2. Open in Arduino IDE
-#    File → Open → AutoMed/AutoMed.ino
+#    File → Open → AutoMed.ino
 
-# 3. Install libraries (Tools → Manage Libraries)
-#    - ESP32Servo
-#    - LiquidCrystal_I2C
+# 3. Install libraries
+#    Tools → Manage Libraries → Search & install:
+#    → ESP32Servo
+#    → LiquidCrystal_I2C
 
-# 4. Select board: ESP32 Dev Module
+# 4. Select your board
 #    Tools → Board → ESP32 Arduino → ESP32 Dev Module
 
-# 5. Upload and open Serial Monitor at 115200 baud
+# 5. Upload & monitor
+#    Upload → Serial Monitor @ 115200 baud
 ```
+
+---
+
+## 💻 Core Code
+
+```cpp
+void loop() {
+  myServo.write(0);          // Compartment CLOSED
+  delay(5000);
+
+  digitalWrite(LED_PIN, HIGH);
+  lcd.print("TAKE MEDICINE"); // Alert patient
+  myServo.write(180);        // Compartment OPEN → dose released
+  delay(5000);
+
+  lcd.clear();
+  digitalWrite(LED_PIN, LOW); // Reset
+}
+```
+
+> 📂 Full source: [`AutoMed.ino`](AutoMed.ino)
 
 ---
 
@@ -79,50 +170,69 @@ git clone https://github.com/YOUR_USERNAME/autoMed-dispenser.git
 
 ```
 autoMed-dispenser/
-├── AutoMed/
-│   └── AutoMed.ino       ← Arduino sketch
-├── docs/
-│   └── index.html        ← Interactive project webpage
-├── .gitignore
-└── README.md
+│
+├── 📄  AutoMed.ino                          ← Arduino firmware
+├── 🌐  index.html                           ← Interactive project webpage
+├── 📊  Embedded Prototype.pptx             ← Full 17-slide presentation
+├── 📝  AutomatedMedicalDispenser_Report.docx ← Technical report
+├── 📜  LICENSE                              ← MIT
+└── 🔧  .gitignore
 ```
-
----
-
-## 👨‍💻 Team
-
-| Name | Role |
-|------|------|
-| Devineni Prem Nag | Team Member |
-| D. Shanmukha Venkata Sai | Team Member |
-| M. Hemanth Kumar | Team Member |
-| SK. Sajeeth Shareef | Team Member |
-
-**Guided by:** Dr. A V. Prabhu, Associate Professor, Dept of ECE  
-**Institution:** KL Deemed to be University
-
----
-
-## 📊 Presentation
-
-📥 **[Download PPT](docs/Embedded_Prototype.pptx)** — Full project presentation (17 slides)
-
-Slides cover: Introduction · Circuit Diagram · Hardware & Software Requirements · Flowchart · Advantages · Applications · Results · Future Scope · Conclusion
 
 ---
 
 ## 🔭 Future Scope
 
-- AI integration for dosage analysis and patient behavior monitoring
-- Mobile app with prescription upload and tracking
-- Cloud storage for long-term medication history
-- Voice assistant support (Alexa / Google Assistant)
-- Camera-based verification to confirm medicine intake
-- Biometric authentication (fingerprint / face recognition)
-- Auto refill notification system
+| Feature | Status |
+|---------|--------|
+| 🤖 AI dosage analysis & behavior monitoring | 🔜 Planned |
+| 📱 Mobile app with prescription upload | 🔜 Planned |
+| ☁️ Cloud storage for medication history | 🔜 Planned |
+| 🎙️ Voice assistant (Alexa / Google) | 🔜 Planned |
+| 📷 Camera verification of medicine intake | 🔜 Planned |
+| 🔐 Biometric authentication | 🔜 Planned |
+| 📲 SMS / WhatsApp / Email alerts | 🔜 Planned |
+| 🔋 Battery backup with power-fail alert | 🔜 Planned |
 
 ---
 
-## 📄 License
+## 📊 Project Resources
 
-MIT © 2024 — feel free to use, modify, and share.
+<div align="center">
+
+| 📊 Presentation | 📄 Report | ▶️ Demo |
+|:-:|:-:|:-:|
+| [Download PPT](Embedded%20Prototype.pptx) | [Download Report](AutomatedMedicalDispenser_Report.docx) | [Watch on YouTube](https://youtu.be/41HkbPN6JoI) |
+| 17 slides · Full coverage | Technical deep-dive | Hardware in action |
+
+</div>
+
+---
+
+
+## 📖 References
+
+**Books:**
+- *Getting Started with ESP32* — Neil Kolban
+- *IoT: A Hands-On Approach* — Bahga & Madisetti
+- *Exploring Arduino* — Jeremy Blum
+- *Embedded Systems: ARM Cortex-M* — J. W. Valvano
+
+**Web:**
+- [espressif.com](https://www.espressif.com) · [arduino.cc](https://www.arduino.cc) · [ieeexplore.ieee.org](https://ieeexplore.ieee.org) · [randomnerdtutorials.com](https://randomnerdtutorials.com)
+
+---
+
+<div align="center">
+
+**⭐ If this project helped you, please give it a star!**
+
+[![Star History](https://img.shields.io/github/stars/Raghavendra-01/autoMed-dispenser?style=social)](https://github.com/Raghavendra-01/autoMed-dispenser)
+
+<br/>
+
+*Built with ❤️ at KL Deemed to be University · Department of ECE*
+
+`ESP32` `Arduino` `Servo` `LCD` `I2C` `IoT` `Healthcare` `Embedded Systems` `Automation`
+
+</div>
